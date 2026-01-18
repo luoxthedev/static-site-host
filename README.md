@@ -1,175 +1,177 @@
 # SiteHost
 
-Une plateforme moderne d'hébergement de sites statiques avec gestion de fichiers et déploiement en temps réel.
+A modern static site hosting platform with file management and real-time deployment.
 
-## 🚀 Fonctionnalités
+[🇫🇷 Version française](README.fr.md)
 
-- **Gestion de sites statiques** : Uploadez et gérez facilement vos sites HTML/CSS/JS
-- **Interface multilingue** : Support du français et de l'anglais (changement de langue en temps réel)
-- **Dashboard intuitif** : Visualisez vos sites, statistiques et fichiers en un coup d'œil
-- **Déploiement instantané** : Vos sites sont accessibles immédiatement après upload
-- **Routage par sous-domaine** : Accédez à vos sites via `slug.lvh.me:3000` ou `/sites/id/`
-- **Fichier principal configurable** : Choisissez quel fichier HTML servir par défaut
-- **Authentification sécurisée** : Système de login/register avec JWT
-- **Gestion de fichiers** : Upload, suppression et organisation de vos fichiers
+## 🚀 Features
+
+- **Static site management**: Easily upload and manage your HTML/CSS/JS sites
+- **Multilingual interface**: Support for French and English (real-time language switching)
+- **Intuitive dashboard**: View your sites, statistics, and files at a glance
+- **Instant deployment**: Your sites are accessible immediately after upload
+- **Subdomain routing**: Access your sites via `slug.lvh.me:3000` or `/sites/id/`
+- **Configurable main file**: Choose which HTML file to serve by default
+- **Secure authentication**: Login/register system with JWT
+- **File management**: Upload, delete, and organize your files
 
 ## 🛠️ Technologies
 
 ### Frontend
-- **React 18** avec TypeScript
-- **Vite** pour le build et le dev server
-- **Tailwind CSS** pour le styling
-- **shadcn/ui** pour les composants UI
-- **Zustand** pour la gestion d'état
-- **i18next** pour l'internationalisation
-- **Framer Motion** pour les animations
+- **React 18** with TypeScript
+- **Vite** for build and dev server
+- **Tailwind CSS** for styling
+- **shadcn/ui** for UI components
+- **Zustand** for state management
+- **i18next** for internationalization
+- **Framer Motion** for animations
 
 ### Backend
-- **Express.js** pour l'API REST
-- **SQLite** pour la base de données
-- **Multer** pour l'upload de fichiers
-- **JWT** pour l'authentification
-- **bcrypt** pour le hashage des mots de passe
+- **Express.js** for REST API
+- **SQLite** for database
+- **Multer** for file uploads
+- **JWT** for authentication
+- **bcrypt** for password hashing
 
 ## 📦 Installation
 
-### Prérequis
-- Node.js 18+ et npm
+### Prerequisites
+- Node.js 18+ and npm
 - Git
 
-### Étapes d'installation
+### Installation Steps
 
 ```bash
-# Cloner le repository
+# Clone the repository
 git clone https://github.com/luoxthedev/static-site-host.git
 cd static-site-host
 
-# Installer les dépendances du frontend
+# Install frontend dependencies
 npm install
 
-# Installer les dépendances du backend
+# Install backend dependencies
 cd server
 npm install
 cd ..
 ```
 
-## 🚀 Démarrage
+## 🚀 Getting Started
 
-### Démarrage rapide (les deux serveurs)
+### Quick Start (both servers)
 
 ```bash
-# Dans le dossier racine, lancer le backend
+# From the root folder, start the backend
 npm run server
 
-# Dans un autre terminal, lancer le frontend
+# In another terminal, start the frontend
 npm run dev
 ```
 
-### Démarrage manuel
+### Manual Start
 
-**Backend** (port 3000) :
+**Backend** (port 3000):
 ```bash
 cd server
 npm start
 ```
 
-**Frontend** (port 8080) :
+**Frontend** (port 8080):
 ```bash
 npm run dev
 ```
 
-## 🌐 Accès
+## 🌐 Access
 
-- **Frontend** : http://localhost:8080
-- **Backend API** : http://localhost:3000
-- **Sites déployés** : 
-  - Par ID : http://localhost:3000/sites/[site-id]/
-  - Par sous-domaine : http://[slug].lvh.me:3000/
+- **Frontend**: http://localhost:8080
+- **Backend API**: http://localhost:3000
+- **Deployed sites**: 
+  - By ID: http://localhost:3000/sites/[site-id]/
+  - By subdomain: http://[slug].lvh.me:3000/
 
 ## ⚙️ Configuration
 
-### Variables d'environnement
+### Environment Variables
 
-Créez un fichier `.env` dans le dossier `server/` :
+Create a `.env` file in the `server/` folder:
 
 ```env
 PORT=3000
-JWT_SECRET=votre_secret_jwt_ici
+JWT_SECRET=your_jwt_secret_here
 SITES_ROOT=uploads
 ```
 
-### Configuration du serveur
+### Server Configuration
 
-Modifiez `server/config.js` pour personnaliser :
+Modify `server/config.js` to customize:
 
 ```javascript
 module.exports = {
-  appDomain: 'lvh.me',        // Domaine pour les sous-domaines
-  port: 3000,                 // Port du serveur
-  sitesRoot: 'uploads',       // Dossier de stockage des sites
-  enableSubdomains: true      // Activer le routage par sous-domaine
+  appDomain: 'lvh.me',        // Domain for subdomains
+  port: 3000,                 // Server port
+  sitesRoot: 'uploads',       // Sites storage folder
+  enableSubdomains: true      // Enable subdomain routing
 };
 ```
 
-## 📁 Structure du projet
+## 📁 Project Structure
 
 ```
 .
-├── src/                    # Code source frontend
-│   ├── components/         # Composants React
-│   ├── pages/             # Pages de l'application
+├── src/                    # Frontend source code
+│   ├── components/         # React components
+│   ├── pages/             # Application pages
 │   ├── stores/            # State management (Zustand)
-│   ├── locales/           # Fichiers de traduction (FR/EN)
-│   └── lib/               # Utilitaires
-├── server/                # Code source backend
-│   ├── routes/            # Routes Express
+│   ├── locales/           # Translation files (FR/EN)
+│   └── lib/               # Utilities
+├── server/                # Backend source code
+│   ├── routes/            # Express routes
 │   ├── middleware/        # Middleware (auth, etc.)
-│   ├── utils/             # Utilitaires backend
-│   ├── uploads/           # Sites hébergés
-│   ├── database.js        # Configuration SQLite
-│   └── index.js           # Point d'entrée backend
-└── public/                # Assets statiques
+│   ├── utils/             # Backend utilities
+│   ├── uploads/           # Hosted sites
+│   ├── database.js        # SQLite configuration
+│   └── index.js           # Backend entry point
+└── public/                # Static assets
 ```
 
-## 🔑 Fonctionnalités principales
+## 🔑 Key Features
 
-### Gestion des sites
-- Créer un nouveau site avec nom et slug
-- Uploader des fichiers (HTML, CSS, JS, images, etc.)
-- Définir un fichier principal personnalisé
-- Supprimer des fichiers
-- Redéployer un site
+### Site Management
+- Create a new site with name and slug
+- Upload files (HTML, CSS, JS, images, etc.)
+- Set a custom main file
+- Delete files
+- Redeploy a site
 
-### Authentification
-- Inscription avec nom, email et mot de passe
-- Connexion avec JWT
-- Option "Se souvenir de moi"
-- Mot de passe oublié
+### Authentication
+- Registration with name, email, and password
+- Login with JWT
+- "Remember me" option
+- Forgot password
 
 ### Dashboard
-- Vue d'ensemble de tous vos sites
-- Statistiques : nombre de sites, sites actifs, stockage utilisé
-- Recherche et filtrage de sites
-- Accès rapide à la gestion de chaque site
+- Overview of all your sites
+- Statistics: number of sites, active sites, storage used
+- Site search and filtering
+- Quick access to each site management
 
-### Internationalisation
-- Basculer entre français et anglais
-- Changement de langue en temps réel
-- Persistance de la préférence linguistique
+### Internationalization
+- Switch between French and English
+- Real-time language switching
+- Language preference persistence
 
-## 🧪 Scripts disponibles
+## 🧪 Available Scripts
 
 ```bash
-npm run dev          # Démarrer le frontend en mode développement
-npm run build        # Compiler le frontend pour la production
-npm run preview      # Prévisualiser le build de production
-npm run server       # Démarrer le backend
+npm run dev          # Start the frontend in development mode
+npm run build        # Build the frontend for production
+npm run preview      # Preview the production build
+npm run server       # Start the backend
 ```
 
 ## 📝 License
 
 MIT
 
-## 👨‍💻 Auteur
+## 👨‍💻 Author
 
-Développé par [luoxthedev](https://github.com/luoxthedev)
+Developed by [luoxthedev](https://github.com/luoxthedev)
