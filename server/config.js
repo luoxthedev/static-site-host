@@ -5,7 +5,7 @@ export default {
   appDomain: 'host.luox.me', 
   
   // Port du serveur
-  port: 2026,
+  port: 2025,
   
   // Dossier de stockage des sites
   sitesRoot: process.env.SITES_ROOT || 'uploads',
