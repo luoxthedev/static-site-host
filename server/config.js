@@ -2,10 +2,10 @@ export default {
   // Domain principal pour l'application
   // Pour le dev local, utilisez 'lvh.me' qui pointe vers 127.0.0.1
   // ou 'localhost' (mais les sous-domaines ne marchent pas sur localhost sans config hosts)
-  appDomain: 'localhost', 
+  appDomain: 'host.luox.me', 
   
   // Port du serveur
-  port: 3000,
+  port: 2026,
   
   // Dossier de stockage des sites
   sitesRoot: process.env.SITES_ROOT || 'uploads',
