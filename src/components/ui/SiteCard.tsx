@@ -41,7 +41,7 @@ export function SiteCard({ site, index = 0 }: SiteCardProps) {
             <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/10 transition-colors duration-300 flex items-center justify-center pointer-events-none">
               <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-auto">
                  <a 
-                  href={`/sites/${site.id}/`} 
+                  href={`/sites/${site.slug || site.id}/`} 
                   target="_blank" 
                   rel="noopener noreferrer"
                   onClick={(e) => e.stopPropagation()}
@@ -66,7 +66,7 @@ export function SiteCard({ site, index = 0 }: SiteCardProps) {
             </h3>
             
             <p className="text-sm text-muted-foreground mt-1 line-clamp-1">
-              {site.slug}.staticsitehost.fr
+              /sites/{site.slug}
             </p>
             
             <div className="flex items-center gap-2 mt-4 text-xs text-muted-foreground">

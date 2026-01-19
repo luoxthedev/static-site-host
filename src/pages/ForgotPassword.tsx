@@ -44,7 +44,7 @@ export default function ForgotPassword() {
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center">
               <span className="text-2xl font-bold text-primary-foreground">S</span>
             </div>
-            <span className="text-2xl font-bold">StaticSiteHost</span>
+            <span className="text-2xl font-bold">Statix</span>
           </Link>
         </div>
         

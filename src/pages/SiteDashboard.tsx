@@ -122,7 +122,7 @@ export default function SiteDashboard() {
             title={t('active_sites')}
             value={stats.activeSites}
             icon={Activity}
-            subtitle={`${Math.round((stats.activeSites / stats.totalSites) * 100)}% du total`}
+            subtitle={t('percent_of_total', { percent: stats.totalSites > 0 ? Math.round((stats.activeSites / stats.totalSites) * 100) : 0 })}
           />
           <StatCard
             title={t('storage_used')}
@@ -134,7 +134,7 @@ export default function SiteDashboard() {
             title={t('bandwidth')}
             value={formatBytes(stats.totalBandwidth)}
             icon={Wifi}
-            subtitle="30 derniers jours"
+            subtitle={t('last_30_days')}
           />
         </div>
         

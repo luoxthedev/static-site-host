@@ -31,3 +31,5 @@ jobs:
             cd ..
             npm install
             npm run build
+            systemctl restart nginx
+            pm2 restart static-site-host

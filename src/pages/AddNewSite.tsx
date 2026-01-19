@@ -44,7 +44,7 @@ export default function AddNewSite() {
       .replace(/(^-|-$)/g, '');
   };
   
-  const previewUrl = name ? `https://${slugify(name)}.staticsitehost.fr` : '';
+  const previewUrl = name ? `${window.location.origin}/sites/${slugify(name)}` : '';
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

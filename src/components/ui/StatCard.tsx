@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import { LucideIcon } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface StatCardProps {
   title: string;
@@ -24,6 +25,7 @@ export function StatCard({
   progress,
   className 
 }: StatCardProps) {
+  const { t } = useTranslation();
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -47,7 +49,7 @@ export function StatCard({
               )}>
                 {trend.isPositive ? '+' : ''}{trend.value}%
               </span>
-              <span className="text-xs text-muted-foreground">vs mois dernier</span>
+              <span className="text-xs text-muted-foreground">{t('vs_last_month')}</span>
             </div>
           )}
           

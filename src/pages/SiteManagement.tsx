@@ -201,8 +201,9 @@ export default function SiteManagement() {
     }
   };
   
-  const subdomainUrl = `http://${site.slug}.lvh.me:3000`;
-
+  const subdomainUrl = `${window.location.origin}/sites/${site.slug}`;
+  const siteUrl = `/sites/${site.id}/`;
+  
   return (
     <div className="min-h-screen bg-background">
       <Topbar />

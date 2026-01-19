@@ -105,55 +105,62 @@ app.use(async (req, res, next) => {
 // Serve uploaded files directly (legacy/direct access)
 app.use('/uploads', express.static(SITES_ROOT));
 
-// Serve deployed sites specifically (cleaner URL structure)
-// This middleware checks if a directory exists for the siteId and serves it
+// Serve deployed sites specifically (cleaner URL structure) - Supports ID or Slug
 app.use('/sites/:siteId', async (req, res, next) => {
-    const siteId = req.params.siteId;
-    const sitePath = path.join(SITES_ROOT, siteId);
+    const siteIdentifier = req.params.siteId;
     
-    // Check if path exists and is a directory
-    if (fs.existsSync(sitePath) && fs.statSync(sitePath).isDirectory()) {
-         try {
-             const db = await getDb();
-             const site = await db.get('SELECT * FROM sites WHERE id = ?', [siteId]);
-             
-             // Get main file (default to index.html)
-             const mainFile = (site && site.main_file) ? site.main_file : 'index.html';
-             const mainFilePath = path.join(sitePath, mainFile);
-             
-             // If specific file requested, serve it
-             if (req.path !== '/' && req.path !== '') {
-               const staticHandler = express.static(sitePath);
-               const indexHandler = serveIndex(sitePath, { icons: true });
+    try {
+        const db = await getDb();
+        // Try to find the site by ID or Slug
+        let site = await db.get('SELECT * FROM sites WHERE id = ?', [siteIdentifier]);
+        
+        if (!site) {
+            site = await db.get('SELECT * FROM sites WHERE slug = ?', [siteIdentifier]);
+        }
 
-               staticHandler(req, res, (err) => {
-                   if (err) return next(err);
-                   indexHandler(req, res, next);
-               });
-               return;
-             }
-             
-             // Serve main file if it exists
-             if (fs.existsSync(mainFilePath)) {
-               return res.sendFile(mainFilePath);
-             }
-             
-             // Fallback: serve static or directory index
-             const staticHandler = express.static(sitePath);
-             const indexHandler = serveIndex(sitePath, { icons: true });
-
-             staticHandler(req, res, (err) => {
-                 if (err) return next(err);
-                 indexHandler(req, res, next);
-             });
-         } catch (err) {
-             console.error("Error serving site:", err);
-             next();
-         }
-    } else {
-        // console.log(`[DEBUG] Site path not found: ${sitePath}`);
-        next();
+        if (site) {
+            const sitePath = path.join(SITES_ROOT, site.id);
+            
+            // Check if path exists and is a directory
+            if (fs.existsSync(sitePath) && fs.statSync(sitePath).isDirectory()) {
+                 // Get main file (default to index.html)
+                 const mainFile = site.main_file ? site.main_file : 'index.html';
+                 const mainFilePath = path.join(sitePath, mainFile);
+                 
+                 // If specific file requested, serve it
+                 if (req.path !== '/' && req.path !== '') {
+                   const staticHandler = express.static(sitePath);
+                   const indexHandler = serveIndex(sitePath, { icons: true });
+    
+                   staticHandler(req, res, (err) => {
+                       if (err) return next(err);
+                       indexHandler(req, res, next);
+                   });
+                   return;
+                 }
+                 
+                 // Serve main file if it exists
+                 if (fs.existsSync(mainFilePath)) {
+                   return res.sendFile(mainFilePath);
+                 }
+                 
+                 // Fallback: serve static or directory index
+                 const staticHandler = express.static(sitePath);
+                 const indexHandler = serveIndex(sitePath, { icons: true });
+    
+                 staticHandler(req, res, (err) => {
+                     if (err) return next(err);
+                     indexHandler(req, res, next);
+                 });
+                 return;
+            }
+        }
+    } catch (err) {
+        console.error("Error serving site:", err);
     }
+    
+    // If not found or error, continue
+    next();
 });
 
 // Routes
@@ -161,7 +168,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/sites', siteRoutes);
 
 app.get('/', (req, res) => {
-  res.send('SiteHost API Running');
+  res.send('Statix API Running');
 });
 
 app.listen(PORT, () => {

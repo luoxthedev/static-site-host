@@ -32,5 +32,8 @@
   "create_one": "Créez-en un maintenant",
   "drop_files": "Déposez les fichiers ici",
   "uploading": "Téléchargement...",
-  "upload_complete": "Téléchargement terminé"
+  "upload_complete": "Téléchargement terminé",
+  "vs_last_month": "vs mois dernier",
+  "percent_of_total": "{{percent}}% du total",
+  "last_30_days": "30 derniers jours"
 }

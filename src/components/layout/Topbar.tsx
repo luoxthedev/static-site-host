@@ -40,7 +40,7 @@ export function Topbar() {
           <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center">
             <span className="text-lg font-bold text-primary-foreground">S</span>
           </div>
-          <span className="font-semibold text-lg hidden sm:block">StaticSiteHost</span>
+          <span className="font-semibold text-lg hidden sm:block">Statix</span>
         </Link>
         
         {/* Navigation */}
