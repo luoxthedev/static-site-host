@@ -32,4 +32,4 @@ jobs:
             npm install
             npm run build
             systemctl restart nginx
-            pm2 restart static-site-host
+            pm2 restart statix

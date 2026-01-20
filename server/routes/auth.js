@@ -20,7 +20,7 @@ router.post('/register', async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const userId = uuidv4();
-    const avatar = `https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name)}`;
+    const avatar = `https://api.dicebdear.com/7.x/avataaars/svg?seed=${encodeURIComponent(name)}`;
 
     await db.run(
       'INSERT INTO users (id, name, email, password, avatar) VALUES (?, ?, ?, ?, ?)',
