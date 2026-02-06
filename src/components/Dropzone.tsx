@@ -2,7 +2,7 @@ import { useCallback, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Upload, File, X, CheckCircle, AlertCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 interface DropzoneProps {
   onFilesAccepted: (files: File[]) => void;
@@ -144,11 +144,9 @@ export function Dropzone({
           {isDragging ? t('drop_files_here') : t('drag_drop_files')}
         </p>
         <p className="text-sm text-muted-foreground mt-1">
-          {t('or_browse').split('<1>').map((part, i) => {
-            if (i === 0) return part;
-            const [highlight, rest] = part.split('</1>');
-            return <span key={i}><span className="text-primary">{highlight}</span>{rest}</span>;
-          })}
+          <Trans i18nKey="or_browse">
+            or <span className="text-primary">browse</span> your computer
+          </Trans>
         </p>
         <p className="text-xs text-muted-foreground mt-3">
           {t('file_types_info', { maxSize: formatFileSize(maxFileSize) })}

@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Mail, ArrowLeft, Loader2, CheckCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
-import { useTranslation } from 'react-i18next';
+import { useTranslation, Trans } from 'react-i18next';
 
 export default function ForgotPassword() {
   const { forgotPassword, isLoading } = useAuthStore();
@@ -112,11 +112,9 @@ export default function ForgotPassword() {
                 </div>
                 <h2 className="text-xl font-bold mb-2">{t('email_sent')}</h2>
                 <p className="text-muted-foreground mb-6">
-                  {t('email_sent_desc', { email }).split('<1>').map((part, i) => {
-                    if (i === 0) return part;
-                    const [emailPart, rest] = part.split('</1>');
-                    return <span key={i}><span className="font-medium text-foreground">{emailPart}</span>{rest}</span>;
-                  })}
+                  <Trans i18nKey="email_sent_desc" values={{ email }}>
+                    If an account exists for <span className="font-medium text-foreground">{{email}}</span>, you will receive a reset link in a few minutes.
+                  </Trans>
                 </p>
                 <p className="text-sm text-muted-foreground">
                   {t('check_spam')}
