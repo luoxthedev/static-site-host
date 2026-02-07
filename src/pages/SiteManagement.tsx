@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Topbar } from '@/components/layout/Topbar';
 import { Footer } from '@/components/layout/Footer';
@@ -85,11 +85,11 @@ export default function SiteManagement() {
   const [selectedMainFile, setSelectedMainFile] = useState<string>('');
   
   // Initialize selected main file when site loads
-  useState(() => {
+  useEffect(() => {
     if (site) {
       setSelectedMainFile(site.mainFile || 'index.html');
     }
-  });
+  }, [site]);
   
   // Get HTML files for dropdown
   const htmlFiles = useMemo(() => {

@@ -117,9 +117,13 @@ router.delete('/:id', authenticateToken, async (req, res) => {
     
     if (!site) return res.status(404).json({ error: 'Site introuvable ou accès refusé' });
 
+    await db.run('DELETE FROM site_files WHERE site_id = ?', [req.params.id]);
     await db.run('DELETE FROM sites WHERE id = ?', [req.params.id]);
-    
-    // Also delete files on disk would be good here
+
+    const siteDir = path.join(SITES_ROOT, req.params.id);
+    if (fs.existsSync(siteDir)) {
+      fs.rmSync(siteDir, { recursive: true, force: true });
+    }
     
     res.json({ message: 'Site supprimé' });
   } catch (error) {

@@ -109,16 +109,18 @@ export const useSiteStore = create<SiteState>((set, get) => ({
     set({ isLoading: true });
     try {
       const token = useAuthStore.getState().token;
-      await fetch(`/api/sites/${id}`, {
+      const res = await fetch(`/api/sites/${id}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
+      if (!res.ok) throw new Error('Failed to delete site');
       set(state => ({
         sites: state.sites.filter(s => s.id !== id),
         isLoading: false
       }));
     } catch {
       set({ isLoading: false });
+      throw new Error('Failed to delete site');
     }
   },
 
@@ -191,16 +193,15 @@ export const useSiteStore = create<SiteState>((set, get) => ({
             },
             body: JSON.stringify({ mainFile })
         });
-        
-        if (res.ok) {
-            set(state => ({
-                sites: state.sites.map(site => 
-                    site.id === siteId ? { ...site, mainFile } : site
-                )
-            }));
-        }
+      if (!res.ok) throw new Error('Failed to update main file');
+
+      set(state => ({
+        sites: state.sites.map(site => 
+          site.id === siteId ? { ...site, mainFile } : site
+        )
+      }));
     } catch {
-        // Silently handle main file update errors
+      throw new Error('Failed to update main file');
     }
   }
 }));

@@ -11,6 +11,8 @@ export async function getDb() {
     driver: sqlite3.Database
   });
 
+  await db.exec('PRAGMA foreign_keys = ON;');
+
   await db.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id TEXT PRIMARY KEY,
@@ -53,6 +55,12 @@ export async function getDb() {
       FOREIGN KEY (site_id) REFERENCES sites(id) ON DELETE CASCADE
     );
   `);
+
+  const siteColumns = await db.all('PRAGMA table_info(sites)');
+  const hasMainFile = siteColumns.some((col) => col.name === 'main_file');
+  if (!hasMainFile) {
+    await db.run("ALTER TABLE sites ADD COLUMN main_file TEXT DEFAULT 'index.html'");
+  }
 
   return db;
 }
